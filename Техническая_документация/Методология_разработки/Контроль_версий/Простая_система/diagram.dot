@@ -1,0 +1,40 @@
+digraph Simple {
+  rankdir=LR
+  node[shape="none"]
+  
+  "prod"[label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3">
+                  <tr><td bgcolor="grey">prod</td></tr>
+                  <tr><td bgcolor="white" width="100" height="30"></td></tr>
+                </table>>
+        ]
+  "test"[label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3">
+                  <tr><td bgcolor="grey">test</td></tr>
+                  <tr><td bgcolor="white" width="100" height="30"></td></tr>
+                </table>>
+        ]
+  "prds"[label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3">
+                  <tr><td bgcolor="grey">prod</td></tr>
+                  <tr><td bgcolor="white" width="100" height="30"></td></tr>
+                </table>>
+        ]
+  "tsts"[label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3">
+                  <tr><td bgcolor="grey">daily</td></tr>
+                  <tr><td bgcolor="white" width="100" height="30"></td></tr>
+                </table>>
+        ]
+        
+  subgraph "cdev" {label="Dev side"
+                           "prod";
+                           "test";
+                          }                
+  subgraph "csrv" {label="Server side"
+                           "prds";
+                           "tsts";
+                          }     
+  {rank="same"; "Dev side"; "test"; "prod"}           
+  {rank="same"; "Server side"; "tsts"; "prds"}
+
+  "prod"->"prds"           
+  "test"->"prod"
+  "test"->"tsts"
+}
